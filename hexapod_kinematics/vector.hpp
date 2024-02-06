@@ -7,9 +7,9 @@ class Vector {
 
 	private:
 	/* Variables */
-	int32_t x;
-	int32_t y;
-	int32_t z;
+	float x;
+	float y;
+	float z;
 	std::string name;
 	std::string id;
 
@@ -18,12 +18,21 @@ class Vector {
 
 	/* Constructor */
 	public:
-	Vector(int32_t x, int32_t y, int32_t z, std::string name, std::string id);
+	Vector(float x, float y, float z, std::string name, std::string id);
 
 	/* Methods */
 
 	public:
-	void newTrot()
+	/**
+	 * Given point `point` location wrt a local axes coordinate frame
+	 * find point in a global axes coordinate frame where the local 
+	 * axes wrt the global frame is defined by parameter transformMatrix 
+	 * */
+	void newTrot(Vector *outputVector, float transformMatrix[4][4], std::string name, std::string id);
+	
+	void cloneTrot(Vector *outputVector, float transformMatrix[4][4]);
+	void cloneShift(Vector *outputVector, float x, float y, float z);
+	void cloneTrotShift(Vector *outputVector, float transformMatrix[4][4], float x, float y, float z);
 
 	private:
 
