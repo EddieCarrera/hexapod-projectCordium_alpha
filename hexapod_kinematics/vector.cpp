@@ -15,7 +15,7 @@ void Vector::newTrot(Vector *outputVector, float tranfMtrx[4][4], std::string na
   	[r00, r01, r02, tx] = r0
     [r10, r11, r12, ty] = r1
     [r20, r21, r22, tz] = r2
-	[ 0 ,  0,   0,   1]
+		[ 0 ,  0,   0,   1]
 	*/
   outputVector->x = this->x*tranfMtrx[0][0] + this->y*tranfMtrx[0][1] + this->z*tranfMtrx[0][2] + tranfMtrx[0][3];
   outputVector->y = this->x*tranfMtrx[1][0] + this->y*tranfMtrx[1][1] + this->z*tranfMtrx[1][2] + tranfMtrx[1][3];

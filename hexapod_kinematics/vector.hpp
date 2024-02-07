@@ -7,6 +7,7 @@
 class Vector {
 
 	/* Variables */
+	public:
 	float x;
 	float y;
 	float z;
