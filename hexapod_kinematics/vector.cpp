@@ -1,8 +1,6 @@
 #include "vector.hpp"
 
-Vector::Vector(float x, float y, float z, 
-								std::string name = "no-name-point", 
-								std::string id = "no-id-point")
+Vector::Vector(float x, float y, float z, std::string name, std::string id)
 	: x(x), y(y), z(z)
 {
 

@@ -16,7 +16,7 @@ class Vector {
 
 	/* Constructor */
 	public:
-	Vector(float x, float y, float z, std::string name, std::string id);
+	Vector(float x, float y, float z, std::string name = "no-name-point", std::string id = "no-id-point");
 
 	/* Methods */
 	public:
