@@ -1,4 +1,4 @@
-#include "vector.hpp"
+#include "include/vector.hpp"
 
 Vector::Vector(float x, float y, float z, std::string name, std::string id)
 	: x(x), y(y), z(z)

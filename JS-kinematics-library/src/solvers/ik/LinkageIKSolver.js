@@ -183,6 +183,7 @@ class LinkageIKSolver {
         //
 
         const { parsVector, legXaxis } = this.vectors
+        
         this.angles = {
             ...this.angles,
             beta: -angleBetween(parsVector, legXaxis),
