@@ -113,7 +113,7 @@ class IKSolver {
 
   /* Constructor */
   public:
-  IKSolver(void);
+  IKSolver(params_t params);
 
   /* Methods */
   void solve(legDimensions_t legDimensions, Vector bodyContactPoints[6], 
