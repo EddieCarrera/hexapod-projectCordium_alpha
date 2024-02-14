@@ -1,14 +1,57 @@
 #pragma once
 
+#include "HexapodSupportCheck.hpp"
 #include <stdio.h>
 #include <string.h>
 #include <string>
 
 class IKMessage
 {
-  std::string subject;
-  std::string body;
+  public:
+  static std::string subject;
+  static std::string body;
 
+  public:
+  void successLegsOnAir(void){
+    subject = "Success.";
+    body = "But some legs won't reach target points on the ground.";
+  }
+
+  void noSupport(SupportCheck_reason_t reason){
+    char buff[100];
+
+    std::snprintf(buff, strlen(buff), "(Error: %d)", reason);
+
+    subject = "Failure: No Support.";
+    body = buff;
+  }
+
+  void badPoint(void){
+    subject = "Failure: Bad Point.";
+    body =  "At least one point would be shoved to the ground.";
+  }
+
+  void badLeg(std::string message){
+    subject = "Failure: Bad leg.";
+    body =  message;
+  }
+
+  void alphaNotInRange(std::string position, float alpha, float maxAngle)
+  {
+    char buff[100];
+
+    std::snprintf(buff, strlen(buff), 
+    "The alpha %.02f computed for %s leg is not within -%.02f < alpha < %0.2f", 
+    alpha, position.c_str(), maxAngle, maxAngle);
+
+    subject = "Failure: Alpha not within range";
+    body = buff;
+  }
+
+  void initialized(void){
+    subject = "Success.";
+    body = "All legs are on the floor.";
+  }    
 };
 
 class LegIKInfo 

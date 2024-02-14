@@ -21,10 +21,47 @@ std::string SupportCheck_string[]
 
 class HexapodSupportCheck
 {
-  static bool checkSupport(POSITION_NAME_TO_ID_MAP legPosition, 
+  static bool checkSupport(bool legsNamesoffGround[6], 
                            SupportCheck_reason_t *reason)
   {
+    uint8_t count_legsOffGround = 0;
 
+    for (uint8_t idx; idx < 6; idx++){
+      if (legsNamesoffGround[idx] == true){
+        count_legsOffGround++;
+      }
+    }
+
+    if (count_legsOffGround < 3){
+      *reason = MIGHT_BE_STABLE_LESS;
+      return false;
+    }
+
+    if (count_legsOffGround >= 4)
+    {
+      *reason = TOO_MANY_LEGS_OFF;
+      return true;
+    }
+
+    // Leg count is exactly 3 at this point
+    // TODO: Verify that this logic is intended
+    if (legsNamesoffGround[rightFront] == true && 
+        legsNamesoffGround[rightMiddle] == true && 
+        legsNamesoffGround[rightBack] == true)
+        {
+          *reason = RIGHT_LEGS_OFF;
+          return true;
+        }    
+
+    if (legsNamesoffGround[leftFront] == true && 
+        legsNamesoffGround[leftMiddle] == true && 
+        legsNamesoffGround[leftBack] == true)
+        {
+          *reason = LEFT_LEGS_OFF;
+          return true;
+        }
+
+    *reason = MIGHT_BE_STABLE_LESS;
+    return false;
   }
-
 };

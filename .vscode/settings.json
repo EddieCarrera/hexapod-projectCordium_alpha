@@ -50,6 +50,9 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "__config": "cpp",
-        "__verbose_abort": "cpp"
+        "__verbose_abort": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "sstream": "cpp"
     }
 }
