@@ -12,6 +12,11 @@ class IKMessage
   static std::string body;
 
   public:
+  void success(void){
+    subject = "Success.";
+    body = "All legs are on the floor.";
+  }
+
   void successLegsOnAir(void){
     subject = "Success.";
     body = "But some legs won't reach target points on the ground.";

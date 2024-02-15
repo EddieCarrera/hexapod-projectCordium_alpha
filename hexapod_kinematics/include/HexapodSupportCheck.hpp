@@ -21,6 +21,8 @@ std::string SupportCheck_string[]
 
 class HexapodSupportCheck
 {
+  // Static allows method to be called without reference to object
+  public:
   static bool checkSupport(bool legsNamesoffGround[6], 
                            SupportCheck_reason_t *reason)
   {

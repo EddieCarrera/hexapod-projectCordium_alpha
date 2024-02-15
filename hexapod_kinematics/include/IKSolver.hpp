@@ -116,8 +116,13 @@ class IKSolver {
   IKSolver(params_t params);
 
   /* Methods */
-  void solve(legDimensions_t legDimensions, Vector bodyContactPoints[6], 
-             Vector groundContactPoints[6], axis_t axis);
+  void solve(params_t parameters);
 
-
+  private:
+  bool _hasLegsOffGround(void);
+  bool _hasNoMoreSupport(bool legPositionsOffGround[6]);
+  void _handleBadPoint(void);
+  bool _hasBadVertex(Vector bodyContactPoints[6]);
+  void _finalizeFailure(IKMessage message);
+  void _finalizeSuccess(void);
 };
