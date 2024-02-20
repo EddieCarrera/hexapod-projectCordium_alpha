@@ -15,45 +15,41 @@ void IKSolver::solve(params_t parameters)
  ******************************************************************************/
 bool IKSolver::_hasLegsOffGround(void)
 {
-  uint8_t idx;
-  for (idx = 0; idx < 6; idx++){
-    if (this->legPositionsOffGround[idx] == true){return true;}
+  for (uint8_t leg = 0; leg < NUMBER_OF_LEGS; leg++){
+    if (this->legPositionsOffGround[leg] == true){return true;}
   }
   return false;
 }
 /*******************************************************************************
  ******************************************************************************/
-bool IKSolver::_hasNoMoreSupport(bool legPositionsOffGround[6])
+bool IKSolver::_hasNoMoreSupport(bool legPositionsOffGround[NUMBER_OF_LEGS])
 {
   SupportCheck_reason_t reason;
+  bool no_support;
 
-  for (uint8_t idx = 0; idx < 6; idx++){
-    this->legPositionsOffGround[idx] = legPositionsOffGround[idx];
+  for (uint8_t leg = 0; leg < NUMBER_OF_LEGS; leg++){
+    this->legPositionsOffGround[leg] = legPositionsOffGround[leg];
   }
 
-  HexapodSupportCheck::checkSupport(&(this->legPositionsOffGround[6]), &reason);
+  no_support = HexapodSupportCheck::checkSupport(&(this->legPositionsOffGround[NUMBER_OF_LEGS]), &reason);
 
+  if (no_support){
+    this->message.noSupport(reason);
+    return true;
+  }
+  return false;
 }
 /*******************************************************************************
  ******************************************************************************/
-
-/*******************************************************************************
- ******************************************************************************/
-
-
-/*******************************************************************************
- ******************************************************************************/
-
-
-/*******************************************************************************
- ******************************************************************************/
-
-
-/*******************************************************************************
- ******************************************************************************/
-void IKSolver::_finalizeFailure(IKMessage message)
+bool IKSolver::_hasBadVertex(Vector bodyContactPoints[NUMBER_OF_LEGS])
 {
-  
+  for (uint8_t leg = 0; leg < NUMBER_OF_LEGS; leg++){
+    if (bodyContactPoints[leg].z < 0){
+      this->message.badPoint();
+      return true;
+    }
+  }
+  return false;
 }
 /*******************************************************************************
  ******************************************************************************/

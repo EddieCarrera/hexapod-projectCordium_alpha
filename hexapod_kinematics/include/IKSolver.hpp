@@ -92,8 +92,8 @@ class IKSolver {
   } axis_t;
 
   typedef struct {
-    Vector bodyContactPoints[6];
-    Vector groundContactPoints[6];
+    Vector bodyContactPoints[NUMBER_OF_LEGS];
+    Vector groundContactPoints[NUMBER_OF_LEGS];
     axis_t axes;
     legDimensions_t legDimensions;
   } params_t; 
@@ -108,7 +108,7 @@ class IKSolver {
   poseAngles_t partialPose;
   poseAngles_t pose;
   bool foundSolution = false;
-  bool legPositionsOffGround[6] = {false}; // mapping of POSITION_NAME_TO_ID_MAP
+  bool legPositionsOffGround[NUMBER_OF_LEGS] = {false}; // mapping of POSITION_NAME_TO_ID_MAP
   IKMessage message;
 
   /* Constructor */
@@ -120,9 +120,9 @@ class IKSolver {
 
   private:
   bool _hasLegsOffGround(void);
-  bool _hasNoMoreSupport(bool legPositionsOffGround[6]);
+  bool _hasNoMoreSupport(bool legPositionsOffGround[NUMBER_OF_LEGS]);
   void _handleBadPoint(void);
-  bool _hasBadVertex(Vector bodyContactPoints[6]);
+  bool _hasBadVertex(Vector bodyContactPoints[NUMBER_OF_LEGS]);
   void _finalizeFailure(IKMessage message);
   void _finalizeSuccess(void);
 };

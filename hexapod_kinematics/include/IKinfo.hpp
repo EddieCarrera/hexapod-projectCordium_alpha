@@ -31,7 +31,7 @@ class IKMessage
     body = buff;
   }
 
-  void badPoint(void){
+  static void badPoint(void){
     subject = "Failure: Bad Point.";
     body =  "At least one point would be shoved to the ground.";
   }

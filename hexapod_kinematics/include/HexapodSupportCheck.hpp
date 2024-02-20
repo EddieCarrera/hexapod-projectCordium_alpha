@@ -23,13 +23,13 @@ class HexapodSupportCheck
 {
   // Static allows method to be called without reference to object
   public:
-  static bool checkSupport(bool legsNamesoffGround[6], 
+  static bool checkSupport(bool legsNamesoffGround[NUMBER_OF_LEGS], 
                            SupportCheck_reason_t *reason)
   {
     uint8_t count_legsOffGround = 0;
 
-    for (uint8_t idx; idx < 6; idx++){
-      if (legsNamesoffGround[idx] == true){
+    for (uint8_t leg; leg < NUMBER_OF_LEGS; leg++){
+      if (legsNamesoffGround[leg] == true){
         count_legsOffGround++;
       }
     }
