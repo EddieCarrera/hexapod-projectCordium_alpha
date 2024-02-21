@@ -10,6 +10,22 @@ IKSolver::IKSolver(params_t params)
 void IKSolver::solve(params_t parameters)
 {
   this->params = parameters;
+
+  if (this->_hasBadVertex(parameters.groundContactPoints)){
+    return; // vs. return this?
+  }
+
+  const legDimensions_t legDimensions = parameters.legDimensions;
+
+  for (uint8_t leg = 0; leg < NUMBER_OF_LEGS; leg++)
+  {
+    std::string legPosition = POSITION_NAMES_LIST[leg];
+
+  
+
+
+  }
+
 }
 /*******************************************************************************
  ******************************************************************************/
