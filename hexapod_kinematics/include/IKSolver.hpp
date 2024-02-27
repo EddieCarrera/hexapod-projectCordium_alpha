@@ -126,3 +126,62 @@ class IKSolver {
   void _finalizeFailure(IKMessage message);
   void _finalizeSuccess(void);
 };
+
+/* * *
+
+computeInitialLegProperties()
+
+.......
+Given:
+.......
+
+1. pB : bodyContactPoint in 3d space
+2. pG : groundContactPoint in 3d space
+3. coxia: distance from pB to pC
+4. zAxis: The vector normal to the hexapodBodyPlane
+
+.......
+Find:
+.......
+
+1. pC : coxiaPoint in 3d space
+2. coxiaVector: the vector from pB to Pc with a length of one
+3. coxiaUnitVector: A vector with the length of one
+    pointing at the direction of the unit vector
+4. rho: The angle made by pC, pB and pG, with pB at the center
+5. summa: The distance from pB to pG
+
+pB   pC
+ *---* -------- hexapodBodyPlane
+  \   \
+   \   *
+    \  /
+      * ------- groundPlane
+      pG
+
+.......
+Idea:
+.......
+
+1. Get the vector from pB to pG (bodyToFootVector)
+2. Project that vector to the hexapodBodyPlane (coxiaDirectionVector)
+   The direction of this vector is the direction of
+   coxiaVector and coxiaUnitVector
+
+   And with a little bit of geometry you derive everything you need.
+
+ * * */
+typedef struct {
+  Vector coxiaUnitVector;
+  Vector coxiaVector;
+  Vector coxiaPoint;
+  float rho;
+  float summa;
+} initialLegProperties_t;
+
+initialLegProperties_t computeInitialLegProperties(
+  Vector bodyContactPoints[NUMBER_OF_LEGS], 
+  Vector groundContactPoints[NUMBER_OF_LEGS], 
+  Vector zAxis, 
+  float coxia);
+
