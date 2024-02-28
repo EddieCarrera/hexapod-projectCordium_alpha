@@ -81,11 +81,43 @@ void IKSolver::_finalizeSuccess(void)
 }
 /*******************************************************************************
  ******************************************************************************/
+void computeInitialLegProperties(initialLegProperties_t *out, Vector bodyContactPoint, 
+                                 Vector groundContactPoint, Vector zAxis, float coxia)
+{
+  Vector bodyToFootVector = Vector(0, 0, 0);
+  Vector coxiaDirectionVector = Vector(0, 0, 0);
 
+  vectorFromTo(&bodyToFootVector, bodyContactPoint, groundContactPoint);
 
+  projectedVectorOntoPlane(&coxiaDirectionVector, bodyToFootVector, zAxis);
+  getUnitVector(&(out->coxiaUnitVector), coxiaDirectionVector);
+  scaleVector(&(out->coxiaVector), out->coxiaUnitVector, coxia);
+
+  addVectors(&(out->coxiaPoint), bodyContactPoint, out->coxiaVector);
+
+  out->rho = angleBetween(out->coxiaUnitVector, bodyToFootVector);
+  out->summa = vectorLength(bodyToFootVector);
+}
 /*******************************************************************************
  ******************************************************************************/
+float computeAlpha(Vector coxiaVector, float legXaxisAngle, Vector xAxis, Vector zAxis)
+{
+  bool sign = isCounterClockwise(coxiaVector, xAxis, zAxis) ? -1 : 1;
+  float alphaWrtHexapod = sign * angleBetween(coxiaVector, xAxis);
+  float alpha = (alphaWrtHexapod - legXaxisAngle) % 360;
 
+  if (alpha > 180) {
+      return alpha - 360;
+  }
+  if (alpha < -180) {
+      return alpha + 360;
+  }
 
-/*******************************************************************************
- ******************************************************************************/
+  // ❗❗❗THIS IS A HACK ❗❗❗
+  // THERE IS A BUG HERE SOMEWHERE, FIND IT
+  if (alpha == 180 || alpha == -180) {
+      return 0;
+  }
+
+  return alpha;
+}

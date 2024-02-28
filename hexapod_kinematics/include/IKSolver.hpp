@@ -179,9 +179,52 @@ typedef struct {
   float summa;
 } initialLegProperties_t;
 
-initialLegProperties_t computeInitialLegProperties(
-  Vector bodyContactPoints[NUMBER_OF_LEGS], 
-  Vector groundContactPoints[NUMBER_OF_LEGS], 
-  Vector zAxis, 
-  float coxia);
+void computeInitialLegProperties(initialLegProperties_t *out, Vector bodyContactPoint, 
+                                 Vector groundContactPoint, Vector zAxis, float coxia);
 
+/* * *
+
+computeAlpha()
+
+  hexapodYaxis
+  ^
+  |
+  * --> hexapodXaxis (xAxis)
+ /
+hexapodZaxis (zAxis)
+
+...............
+Example #1 :
+...............
+
+             coxiaVector
+              ^
+              | legXaxis
+              |  /        * legXaxisAngle
+              | /            - Angle between legXaxis and hexapodXaxis
+    * -- * -- *                (in this example: +45 degrees )
+   /           \
+  /             \          * Alpha
+ *       *       *            - Angle between legXaxis and coxiaVector
+  \             /                (in this example: +45 degrees)
+   \           /
+    * -- * -- *
+
+...............
+Example #2
+...............
+
+    * -- * -- *       * legXaxisAngle
+   /           \          - (in this example: -45 degrees or +315 degrees)
+  /             \      * Alpha
+ *       *       *         - (in this example: -45 degrees)
+  \             /
+   \           /
+    * -- * -- *
+              |\              - (in this example: +45 degrees )
+              | \
+              | legXaxis
+              V
+              coxiaVector
+ * * */
+float computeAlpha(Vector coxiaVector, float legXaxisAngle, Vector xAxis, Vector zAxis);
