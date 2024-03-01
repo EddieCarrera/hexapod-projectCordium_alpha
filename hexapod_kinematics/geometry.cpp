@@ -28,6 +28,7 @@ float acosDegrees(float ratio)
   if(isnan(thetaRadians))
   {
     // Fault catch
+    return 0;
   }
   return toDegrees(thetaRadians);
 }
@@ -37,6 +38,7 @@ float angleOppositeOfLastSide(float a, float b, float c)
 {
   if (a == 0 || b == 0) {
       // fault catch
+      return 0;
   }
 
   float cosTheta = (a * a + b * b - c * c) / (2 * a * b);
@@ -47,11 +49,11 @@ float angleOppositeOfLastSide(float a, float b, float c)
 float angleBetween(Vector a, Vector b)
 {
   if (vectorLength(a) == 0 || vectorLength(b) == 0) {
-    // fault catch
+    return 0;
   }
 
   float cosTheta = dot(a, b)/sqrt(dot(a, a) * dot(b, b));
-  acosDegrees(cosTheta);
+  return acosDegrees(cosTheta);
 }
 /*******************************************************************************
  ******************************************************************************/

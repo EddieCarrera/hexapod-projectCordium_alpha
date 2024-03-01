@@ -121,7 +121,6 @@ class IKSolver {
   private:
   bool _hasLegsOffGround(void);
   bool _hasNoMoreSupport(bool legPositionsOffGround[NUMBER_OF_LEGS]);
-  void _handleBadPoint(void);
   bool _hasBadVertex(Vector bodyContactPoints[NUMBER_OF_LEGS]);
   void _finalizeFailure(IKMessage message);
   void _finalizeSuccess(void);

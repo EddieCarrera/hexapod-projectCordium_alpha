@@ -15,14 +15,34 @@ void IKSolver::solve(params_t parameters)
     return; // vs. return this?
   }
 
-  const legDimensions_t legDimensions = parameters.legDimensions;
+  float coxia = parameters.legDimensions.coxia;
+  float femur = parameters.legDimensions.femur;
+  float tibia = parameters.legDimensions.tibia;
 
   for (uint8_t leg = 0; leg < NUMBER_OF_LEGS; leg++)
   {
     std::string legPosition = POSITION_NAMES_LIST[leg];
 
-  
+    initialLegProperties_t known = {Vector(0,0,0), Vector(0,0,0), Vector(0,0,0), {0}};
 
+    computeInitialLegProperties(&known, parameters.bodyContactPoints[leg],
+                                parameters.groundContactPoints[leg], parameters.axes.zAxis, 
+                                parameters.legDimensions.coxia);
+    if (known.coxiaPoint.z < 0)
+    {
+      this->message.badPoint();
+      return;
+    }
+
+    float alpha = computeAlpha(known.coxiaUnitVector, POSITION_NAME_TO_AXIS_ANGLE_MAP[leg],
+                               parameters.axes.xAxis, parameters.axes.zAxis);
+  
+    if (abs(alpha) > alpha_maxAngle){
+      this->message.alphaNotInRange(legPosition, alpha, alpha_maxAngle);
+      return;
+    }
+
+    
 
   }
 
@@ -102,9 +122,9 @@ void computeInitialLegProperties(initialLegProperties_t *out, Vector bodyContact
  ******************************************************************************/
 float computeAlpha(Vector coxiaVector, float legXaxisAngle, Vector xAxis, Vector zAxis)
 {
-  bool sign = isCounterClockwise(coxiaVector, xAxis, zAxis) ? -1 : 1;
+  int sign = isCounterClockwise(coxiaVector, xAxis, zAxis) ? -1 : 1;
   float alphaWrtHexapod = sign * angleBetween(coxiaVector, xAxis);
-  float alpha = (alphaWrtHexapod - legXaxisAngle) % 360;
+  float alpha = (int)(round(alphaWrtHexapod - legXaxisAngle)) % 360;
 
   if (alpha > 180) {
       return alpha - 360;

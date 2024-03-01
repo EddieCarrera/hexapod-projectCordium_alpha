@@ -34,10 +34,10 @@ const std::string POSITION_NAMES_LIST[] = {
 	"gamma"    
 };
 
-enum POSITION_NAME_TO_ID_MAP {
-	alpha = 90,
-	beta = 180,
-	gamma = 180
+enum MAX_ANGLES {
+	alpha_maxAngle = 90,
+	beta_maxAngle = 180,
+	gamma_maxAngle = 180
 };
 
 /*
@@ -68,13 +68,13 @@ enum POSITION_NAME_TO_ID_MAP {
          x4           x5
       (+225)        (+315)
  */
-enum POSITION_NAME_TO_AXIS_ANGLE_MAP {
-	rightMiddle = 0,
-	rightFront = 45,
-	leftFront = 135,
-	leftMiddle = 180,
-	leftBack = 225,
-	rightBack = 315
+uint16_t POSITION_NAME_TO_AXIS_ANGLE_MAP[] {
+	0, 	// rightMiddle
+	45, 	// rightFront
+	135, 	// leftFront
+	180,	// leftMiddle
+	225,		// leftBack
+	315		// rightBack
 };
 
 const uint8_t NUMBER_OF_LEGS = 6;
