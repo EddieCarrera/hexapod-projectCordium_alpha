@@ -8,6 +8,13 @@ void cross(Vector *out, Vector a, Vector b)
 }
 /*******************************************************************************
  ******************************************************************************/
+bool isCounterClockwise(Vector a, Vector b, Vector n){
+    Vector outVector = Vector(0,0,0);
+    cross(&outVector, b, n);
+    return dot(a, outVector) > 0;
+}
+/*******************************************************************************
+ ******************************************************************************/
 void getNormalofThreePoints(Vector *normal, Vector a, Vector b, Vector c)
 {
   Vector ab = Vector(0, 0, 0);

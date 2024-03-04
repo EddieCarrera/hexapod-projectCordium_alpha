@@ -28,11 +28,6 @@ inline float dot(Vector a, Vector b){
 inline float vectorLength(Vector v){
     return sqrt(dot(v,v));
 }
-inline bool isCounterClockwise(Vector a, Vector b, Vector n){
-    Vector outVector = Vector(0,0,0);
-    cross(&outVector, b, n);
-    return dot(a, outVector) > 0;
-}
 inline void vectorFromTo(Vector *out, Vector a, Vector b){
     out->x = b.x - a.x;
     out->y =  b.y - a.y;
@@ -71,6 +66,7 @@ inline void skew(float matrix[][4], Vector p)
 /*******************************************************************************
  ******************************************************************************/
 void cross(Vector *out, Vector a, Vector b);
+bool isCounterClockwise(Vector a, Vector b, Vector n);
 void getNormalofThreePoints(Vector *normal, Vector a, Vector b, Vector c);
 float acosDegrees(float ratio);
 float angleOppositeOfLastSide(float a, float b, float c);
