@@ -7,6 +7,7 @@ target_include_directories(${OUTPUT_NAME} PRIVATE
         )
 
 target_link_libraries(${OUTPUT_NAME}
+        pico_stdlib
         vector
         geometry
         )
