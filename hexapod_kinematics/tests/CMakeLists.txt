@@ -1,5 +1,5 @@
-set(OUTPUT_NAME geometryTest)
-add_executable(${OUTPUT_NAME} geometryTest.cpp)
+set(OUTPUT_NAME test_modules)
+add_executable(${OUTPUT_NAME} test_modules.cpp)
 
 # As opposed to 'CMAKE_CURRENT_LIST_DIR'
 target_include_directories(${OUTPUT_NAME} PRIVATE
